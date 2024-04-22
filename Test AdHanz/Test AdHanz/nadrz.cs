@@ -45,7 +45,7 @@ namespace Test_AdHanz
             return pocet;
         }
 
-        public void Push (int prvky)
+        public void Push (int prvek)
         {
 
             if (pocet == prvky.Length)
@@ -58,7 +58,7 @@ namespace Test_AdHanz
                 prvky = novePole;
             }
 
-            prvky[pocet] = prvky;
+            prvky[pocet] = prvek;
             pocet += 1;
         }
 
