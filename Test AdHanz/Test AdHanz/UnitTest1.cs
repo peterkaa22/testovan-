@@ -1,27 +1,56 @@
+using System.Runtime.InteropServices.JavaScript;
+using System.Xml.Schema;
+
 namespace Test_AdHanz
 {
     [TestClass]
-    public class UnitTest1 : PageTest
+    public class fifotest
     {
         [TestMethod]
-        public async Task HomepageHasPlaywrightInTitleAndGetStartedLinkLinkingtoTheIntroPage()
+        public void NoveVytvorenyZasobnikJePrazdny()
         {
-            await Page.GotoAsync("https://playwright.dev");
+             fifo fifo = new fifo();
 
-            // Expect a title "to contain" a substring.
-            await Expect(Page).ToHaveTitleAsync(new Regex("Playwright"));
-
-            // create a locator
-            var getStarted = Page.Locator("text=Get Started");
-
-            // Expect an attribute "to be strictly equal" to the value.
-            await Expect(getStarted).ToHaveAttributeAsync("href", "/docs/intro");
-
-            // Click the get started link.
-            await getStarted.ClickAsync();
-
-            // Expects the URL to contain intro.
-            await Expect(Page).ToHaveURLAsync(new Regex(".*intro"));
+            Assert.AreEqual(0, fifo.Count(), "Vytvoøený fifo  prázdný.");
         }
+        [TestMethod]
+        public void ZasobnikPovlozeniPrvkuNeniPrazdny()
+        {
+            fifo fifo = new fifo();
+
+            fifo.Push(3);
+
+            Assert.AreNotEqual(0, fifo.Count(), "Vytvoøený fifo není prázdný.");
+        }
+        [TestMethod]
+        public void PocetVlozeniOdpovidaPoctuPrvkuVZasobniku()
+        {
+            fifo fifo = new fifo();
+
+            fifo.Push(3);
+            fifo.Push(5);
+            fifo.Push(-8);
+
+            Assert.AreEqual(3, fifo.Count(), "Poèet vložení neodpovídá poètu prvkù v Fifo.");
+        }
+
+        [TestMethod]
+        public void ZasobnikSJednimPrvkemBudePoOdebraniPrvkuPrazdny()
+        {
+            fifo fifo = new fifo();
+
+            fifo.Push(3);
+
+            Assert.AreEqual(1, fifo.Count());
+
+            fifo.Pop();
+
+            Assert.AreEqual(0, fifo.Count(), "Fifo s jedním prvkem není po odebrání prvku prázdný.");
+        }
+
+
     }
+
+
+
 }
